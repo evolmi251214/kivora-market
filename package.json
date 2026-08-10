@@ -1,0 +1,13 @@
+{
+  "name": "kivora-market-engine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Stateless KVC live market engine for Kivora Empire",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
