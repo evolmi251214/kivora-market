@@ -1,24 +1,28 @@
-# Kivora Market Engine — Render
+# Kivora Market Engine v16
 
-Node service without external packages. It generates the KVC market from a deterministic UTC tick, so:
+Render-owned, stateless KVC market engine.
 
-- no Supabase market table writes;
-- all Render instances/restarts derive the same KVC price;
-- one SSE connection per player only while Trading is open;
-- `/snapshot?points=60` returns initial history;
-- `/stream` pushes one tick every 3 seconds;
-- `/price` is used by the PHP trade server;
-- `/health` is available for Render health checks.
+- One candle every **40 seconds**.
+- Smooth deterministic trend/noise; all players see the same market.
+- Rare 2-4% market events unfold over 8-12 candles instead of one spike.
+- `/stream` uses SSE and pushes only when a candle changes.
+- `/snapshot?points=60` returns about **40 minutes** of history.
+- `/price` returns the current/previous candle.
+- `/health` reports engine version and candle interval.
+- No Supabase writes or database required.
 
 ## Render
 
-Root directory: `render/kivora-market`
+Repository root is the service root.
+
 Build command: `npm install`
+
 Start command: `npm start`
+
 Region: Singapore
 
-After deployment set the Kivora hosting `.env`:
+Hosting `.env`:
 
 ```env
-KIVORA_MARKET_URL=https://YOUR-SERVICE.onrender.com
+KIVORA_MARKET_URL=https://kivora-market.onrender.com
 ```
